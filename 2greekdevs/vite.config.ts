@@ -10,12 +10,14 @@ export default defineConfig(({ mode }) => ({
     host: true,
      port: 8080,
   },
+  base: '/2GreekDevs-Portofolio/',
   plugins: [
+    
     react(),
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
-  base: "/2GreekDevs-Portofolio",
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

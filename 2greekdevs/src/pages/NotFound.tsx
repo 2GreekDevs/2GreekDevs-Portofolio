@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const NotFound = () => {
   const location = useLocation();
@@ -21,8 +22,9 @@ const NotFound = () => {
         <p className="text-muted-foreground">
           Sorry, we couldn't find the page you're looking for.
         </p>
+
         <Button asChild>
-          <a href="/">Return to Home</a>
+          <Link to="/">Return to Home</Link>
         </Button>
       </div>
     </div>

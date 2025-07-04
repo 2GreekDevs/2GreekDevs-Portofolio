@@ -2,8 +2,10 @@ import { motion } from 'framer-motion';
 import { ChevronDown, Play, Star, Users, Code, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import dev1 from 'public/Dev1.png';
-import dev2 from 'public/Dev2.png';
+import dev1 from '/public/Dev1.png';
+import dev2 from '/public/Dev2.png';
+
+
 
 const HeroSection = () => {
   const scrollToAbout = () => {
@@ -24,7 +26,7 @@ const HeroSection = () => {
         { text: "Full-Stack", color: "bg-greekblue/10 text-greekblue border-greekblue/20" },
         { text: "Game Dev", color: "bg-greekteal/10 text-greekteal border-greekteal/20" },
       ],
-      image: dev1,
+      src: "/Dev1.png",
       socials: [
         { icon: "ri-github-fill", link: "#" },
         { icon: "ri-linkedin-box-fill", link: "#" },
@@ -37,7 +39,7 @@ const HeroSection = () => {
         { text: "UI/UX", color: "bg-greekteal/10 text-greekteal border-greekteal/20" },
         { text: "Frontend", color: "bg-greekblue/10 text-greekblue border-greekblue/20" },
       ],
-      image: dev2,
+      image: "/Dev2.png",
       socials: [
         { icon: "ri-github-fill", link: "#" },
         { icon: "ri-linkedin-box-fill", link: "#" },

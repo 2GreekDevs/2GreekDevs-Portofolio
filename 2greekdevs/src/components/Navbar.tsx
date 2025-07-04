@@ -211,7 +211,7 @@ const Navbar = () => {
               className="w-full text-base font-semibold"
               onClick={() => {
                 setMobileMenuOpen(false);
-                navigate("/eshop");
+                navigate("/coming-soon");
               }}
             >
               Visit E-Shop

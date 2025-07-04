@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Github, Linkedin, Facebook, Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import banner_light from '/public/banner2.png';
+import banner_dark from '/public/banner1.png';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -61,12 +63,12 @@ const Footer = () => {
                   <Link to="/" className="flex items-center mb-6" aria-label="2GreekDevs Home">
                   <span className="sr-only">2GreekDevs Home</span>
                   <img 
-                    src="/banner2.png" 
+                    src={banner_dark}
                     alt="2GreekDevs Logo Light" 
                     className="h-[110px] w-auto dark:hidden transition-all duration-300"
                   />
                   <img 
-                    src="/banner.png" 
+                    src={banner_light} 
                     alt="2GreekDevs Logo Dark" 
                     className="h-[110px] w-auto hidden dark:block transition-all duration-300"
                   />

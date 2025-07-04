@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import { cn } from '@/lib/utils';
+import banner1 from '@/assets/banner.png';
+import banner2 from '@/assets/banner2.png';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -82,8 +84,8 @@ const Navbar = () => {
         <nav className="flex items-center justify-between px-4 py-3" role="navigation" aria-label="Main navigation">
           {/* Logo */}
           <a href="/" className="flex items-center">
-            <img src="/banner2.png" alt="2GreekDevs Logo" className="h-[90px] mb-2 dark:hidden" />
-            <img src="/banner.png" alt="2GreekDevs Logo" className="h-[90px] mb-2 hidden dark:block" />
+            <img src={banner2} alt="2GreekDevs Logo" className="h-[90px] mb-2 dark:hidden" />
+            <img src={banner1} alt="2GreekDevs Logo" className="h-[90px] mb-2 hidden dark:block" />
           </a>
 
           {/* Desktop Nav */}

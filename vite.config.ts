@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
     host: true,
      port: 8080,
   },
-  base: '/',
+  base: '/2GreekDevs-Portofolio/',
   plugins: [
     
     react(),

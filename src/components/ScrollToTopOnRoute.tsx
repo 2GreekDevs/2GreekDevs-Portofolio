@@ -5,8 +5,12 @@ const ScrollToTopOnRoute = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // Always scroll to top on page change
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    // Use a short delay to ensure content has rendered
+    const timeout = setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }, 50); // 50ms is usually enough
+
+    return () => clearTimeout(timeout);
   }, [pathname]);
 
   return null;

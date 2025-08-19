@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Search, Filter, Grid, List, SortAsc, SortDesc } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Input } from '@/components/ui/input';
@@ -70,13 +70,26 @@ const Projects = () => {
       total: projectData.length,
       live: projectData.filter(p => p.status === 'Live').length,
       inDevelopment: projectData.filter(p => p.status === 'In Development').length,
-      wip: projectData.filter(p => p.status === 'Coming Soon').length,
+      wip: projectData.filter(p => p.status === 'Code Review').length,
       featured: projectData.filter(p => p.featured).length,
     };
     return stats;
   }, []);
 
   const allStatuses = ['All', 'Live', 'In Development', 'Coming Soon'];
+
+
+useEffect(() => {
+  document.title = "Projects - 2GreekDevs";
+
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute(
+      'content',
+      'Review our porjects and discover our expertise in web applications, Discord bots, mobile apps, and design projects.'
+    );
+  }
+}, []);
 
   return (
     <div className="min-h-screen bg-background">

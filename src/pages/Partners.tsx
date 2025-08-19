@@ -1,4 +1,5 @@
 
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -31,6 +32,10 @@ const partners = [
     website: "#"
   }
 ]; 
+
+
+
+
 
 const Partners = () => {
   return (

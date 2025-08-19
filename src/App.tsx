@@ -13,9 +13,10 @@ import ComingSoon from "./pages/ComingSoon";
 import Eshop from "./pages/Eshop";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "./components/ScrollToTop"; // <- your button
+import ScrollToTopOnRouteChange from "./components/ScrollToTopOnRouteChange"; // <- new listener
 import Projects from "./pages/Projects";
-import Navbar from "./components/Navbar"; // Add this if not already used
+import Navbar from "./components/Navbar";
 
 const queryClient = new QueryClient();
 
@@ -24,8 +25,10 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/"> {/*2GreekDevs-Portofolio*/}
-        <ScrollToTop />
+      <BrowserRouter basename="/">
+        {/* NEW: resets scroll every time the route changes */}
+        <ScrollToTopOnRouteChange />
+
         <Navbar />
         <Routes>
           <Route path="/" element={<Index />} />
@@ -37,6 +40,9 @@ const App = () => (
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+
+        {/* Your existing button stays */}
+        <ScrollToTop />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

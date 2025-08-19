@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,43 +14,41 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Projects from "./pages/Projects";
 
 import Navbar from "./components/Navbar";
-import ScrollToTopOrHash from "./components/ScrollToTopOrHash";
+import ScrollToTopOnRoute from "./components/ScrollToTopOnRoute";
+import ScrollToTop from "./components/ScrollToTop";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        {/* Toasters for notifications */}
-        <Toaster />
-        <Sonner />
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter basename="/">
+        {/* Auto scroll to top on page change */}
+        <ScrollToTopOnRoute />
 
-        <BrowserRouter basename="/">
-          {/* Handles scroll-to-top and smooth hash link scrolling */}
-          <ScrollToTopOrHash />
+        {/* Floating scroll-to-top button */}
+        <ScrollToTop />
 
-          {/* Navbar */}
-          <Navbar />
+        <Navbar />
 
-          {/* Routes */}
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/partners" element={<Partners />} />
-            <Route path="/coming-soon" element={<ComingSoon />} />
-            <Route path="/eshop" element={<ComingSoon />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
-};
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/partners" element={<Partners />} />
+          <Route path="/coming-soon" element={<ComingSoon />} />
+          <Route path="/eshop" element={<ComingSoon />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;

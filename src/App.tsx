@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -13,12 +14,27 @@ import ComingSoon from "./pages/ComingSoon";
 import Eshop from "./pages/Eshop";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
-import ScrollToTop from "./components/ScrollToTop"; // <- your button
-import ScrollToTopOnRouteChange from "./components/ScrollToTopOnRouteChange"; // <- new listener
+import ScrollToTop from "./components/ScrollToTop"; 
 import Projects from "./pages/Projects";
 import Navbar from "./components/Navbar";
 
 const queryClient = new QueryClient();
+
+
+
+const ScrollToTopOnRouteChange = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant", // change to "smooth" if you want animation
+    });
+  }, [pathname]);
+
+  return null;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

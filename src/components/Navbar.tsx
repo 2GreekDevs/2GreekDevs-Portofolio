@@ -21,6 +21,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
 
+  // Lock scroll when mobile menu is open
   useEffect(() => {
     let scrollY = 0;
     if (mobileMenuOpen) {
@@ -52,12 +53,14 @@ const Navbar = () => {
     };
   }, [mobileMenuOpen]);
 
+  // Detect scroll for navbar background
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY >= 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && mobileMenuOpen) {
@@ -76,6 +79,14 @@ const Navbar = () => {
     { name: "Partners", href: "/partners", icon: <Users className="w-5 h-5" /> },
     { name: "e-shop", href: "/eshop", icon: <ShoppingCart className="w-5 h-5" /> },
   ];
+
+  // Scroll to top on page navigation links
+  const handleLinkClick = (href: string) => {
+    if (!href.startsWith("#")) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header
@@ -103,6 +114,7 @@ const Navbar = () => {
             />
           </Link>
 
+          {/* Desktop Links */}
           <div className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) =>
               link.href.startsWith("#") ? (
@@ -117,6 +129,7 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.href}
+                  onClick={() => handleLinkClick(link.href)}
                   className="nav-link text-foreground hover:text-greekteal transition-colors"
                 >
                   {link.name}
@@ -129,6 +142,7 @@ const Navbar = () => {
             <ThemeToggle />
           </div>
 
+          {/* Mobile menu button */}
           <div className="lg:hidden">
             <Button
               variant="ghost"
@@ -177,7 +191,7 @@ const Navbar = () => {
           >
             <div className="px-4 pt-4">
               <div className="flex justify-between items-center">
-                <Link to="/" className="w-full text-center">
+                <Link to="/" className="w-full text-center" onClick={() => handleLinkClick("/")}>
                   <img
                     src="/banner2.png"
                     alt="2GreekDevs"
@@ -219,7 +233,7 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     to={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={() => handleLinkClick(link.href)}
                     className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-muted transition-all text-base font-medium text-muted-foreground hover:text-foreground"
                   >
                     {link.icon}
@@ -238,6 +252,7 @@ const Navbar = () => {
                 onClick={() => {
                   setMobileMenuOpen(false);
                   navigate("/coming-soon");
+                  window.scrollTo({ top: 0, behavior: "auto" });
                 }}
               >
                 Visit E-Shop

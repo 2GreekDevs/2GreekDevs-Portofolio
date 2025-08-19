@@ -5,19 +5,23 @@ const ScrollToTopOrHash = () => {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    const scroll = () => {
+    const scrollToHash = () => {
       if (hash) {
-        const element = document.querySelector(hash);
-        if (element) element.scrollIntoView({ behavior: "smooth" });
+        const id = hash.replace("#", "");
+        const element = document.getElementById(id);
+
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        } else {
+          // Retry after a short delay if element isn't found yet
+          setTimeout(scrollToHash, 100);
+        }
       } else {
         window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       }
     };
 
-    // Wait a tick for layout to finish
-    const timeout = setTimeout(scroll, 50);
-
-    return () => clearTimeout(timeout);
+    scrollToHash();
   }, [pathname, hash]);
 
   return null;

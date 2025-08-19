@@ -26,11 +26,13 @@ const ScrollToTopOnRouteChange = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto", // "auto" or "smooth"
-    });
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "auto", // or "smooth"
+      });
+    }, 0);
   }, [pathname]);
 
   return null;

@@ -29,7 +29,7 @@ const ScrollToTopOnRouteChange = () => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant", // change to "smooth" if you want animation
+      behavior: "auto", // "auto" or "smooth"
     });
   }, [pathname]);
 

@@ -8,12 +8,14 @@ import {
   Facebook,
   Instagram,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import banner1 from "@/assets/banner.png";
 import banner2 from "@/assets/banner2.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
 
   const footerLinks = {
     services: [
@@ -57,13 +59,13 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-muted/30  border-t border-border/30 relative overflow-hidden">
+    <footer className="bg-muted/30 border-t border-border/30 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
 
       <div className="container px-4 md:px-6 relative z-10 md:pl-8">
         <div className="py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-6 md:gap-8 lg:gap-12">
-            {/* Company Info with md:pl-6 */}
+            {/* Company Info */}
             <div className="md:col-span-2 space-y-6 md:pl-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -131,7 +133,7 @@ const Footer = () => {
               </motion.div>
             </div>
 
-            {/* Sections with md:pl-6 */}
+            {/* Footer Links */}
             {Object.entries(footerLinks).map(([title, links], i) => (
               <div className="space-y-6 md:pl-6" key={title}>
                 <motion.div
@@ -144,25 +146,66 @@ const Footer = () => {
                     {title}
                   </h3>
                   <ul className="space-y-3">
-                    {links.map((link, index) => (
-                      <li key={`${title}-${index}`}>
-                        {link.href.startsWith("/") ? (
-                          <Link
-                            to={link.href}
-                            className="text-sm text-muted-foreground hover:text-greekteal transition-colors"
-                          >
-                            {link.name}
-                          </Link>
-                        ) : (
+                    {links.map((link, index) => {
+                      const isHashLink = link.href.includes("#");
+
+                      // Hash link + on homepage → smooth scroll
+                      if (isHashLink && location.pathname === "/") {
+                        return (
+                          <li key={`${title}-${index}`}>
+                            <HashLink
+                              smooth
+                              to={link.href}
+                              className="text-sm text-muted-foreground hover:text-greekteal transition-colors"
+                            >
+                              {link.name}
+                            </HashLink>
+                          </li>
+                        );
+                      }
+
+                      // Hash link + on other pages → navigate first
+                      if (isHashLink) {
+                        return (
+                          <li key={`${title}-${index}`}>
+                            <Link
+                              to={link.href}
+                              className="text-sm text-muted-foreground hover:text-greekteal transition-colors"
+                            >
+                              {link.name}
+                            </Link>
+                          </li>
+                        );
+                      }
+
+                      // Normal internal route
+                      if (link.href.startsWith("/")) {
+                        return (
+                          <li key={`${title}-${index}`}>
+                            <Link
+                              to={link.href}
+                              className="text-sm text-muted-foreground hover:text-greekteal transition-colors"
+                            >
+                              {link.name}
+                            </Link>
+                          </li>
+                        );
+                      }
+
+                      // External link
+                      return (
+                        <li key={`${title}-${index}`}>
                           <a
                             href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="text-sm text-muted-foreground hover:text-greekteal transition-colors"
                           >
                             {link.name}
                           </a>
-                        )}
-                      </li>
-                    ))}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </motion.div>
               </div>
@@ -208,23 +251,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-// {links.map((link, index) => (
-//                       <li key={`${title}-${index}`}>
-//                         {link.href.startsWith('/') ? (
-//                           <a
-//                             href={link.href}
-//                             className="text-sm text-muted-foreground hover:text-greekteal transition-colors"
-//                           >
-//                             {link.name}
-//                           </a>
-//                         ) : (
-//                           <Link
-//                             to={link.href}
-//                             className="text-sm text-muted-foreground hover:text-greekteal transition-colors"
-//                           >
-//                             {link.name}
-//                           </Link>
-//                         )}
-//                       </li>
-//                     ))}

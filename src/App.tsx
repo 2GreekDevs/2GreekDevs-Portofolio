@@ -14,8 +14,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Projects from "./pages/Projects";
 
 import Navbar from "./components/Navbar";
-import ScrollToTopOnRoute from "./components/ScrollToTopOnRoute";
 import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTopOrHash from "./components/ScrollToTopOrHash";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -28,8 +28,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter basename="/">
-        {/* Auto scroll to top on page change */}
-        <ScrollToTopOnRoute />
+        {/* Auto scroll to top on page change / hash links */}
+        <ScrollToTopOrHash />
 
         {/* Floating scroll-to-top button */}
         <ScrollToTop />

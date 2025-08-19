@@ -15,7 +15,7 @@ import Projects from "./pages/Projects";
 
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
-import ScrollToTopOrHash from "./components/ScrollToTopOrHash";
+import ScrollManager from "./components/ScrollManager";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -28,14 +28,16 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter basename="/">
-        {/* Auto scroll to top on page change / hash links */}
-        <ScrollToTopOrHash />
+        {/* Handles auto scroll to top on page change or smooth scroll for hash links */}
+        <ScrollManager />
 
         {/* Floating scroll-to-top button */}
         <ScrollToTop />
 
+        {/* Main navigation */}
         <Navbar />
 
+        {/* Routes */}
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/projects" element={<Projects />} />

@@ -22,30 +22,36 @@ import "swiper/css/pagination";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter basename="/">
-        {/* Handles smooth scroll and hash links */}
-        <ScrollToTopOrHash />
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        {/* Toasters for notifications */}
+        <Toaster />
+        <Sonner />
 
-        <Navbar />
+        <BrowserRouter basename="/">
+          {/* Handles scroll-to-top and smooth hash link scrolling */}
+          <ScrollToTopOrHash />
 
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/partners" element={<Partners />} />
-          <Route path="/coming-soon" element={<ComingSoon />} />
-          <Route path="/eshop" element={<ComingSoon />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+          {/* Navbar */}
+          <Navbar />
+
+          {/* Routes */}
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/partners" element={<Partners />} />
+            <Route path="/coming-soon" element={<ComingSoon />} />
+            <Route path="/eshop" element={<ComingSoon />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

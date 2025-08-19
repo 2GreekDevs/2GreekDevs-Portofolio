@@ -48,30 +48,59 @@ const Footer = () => {
 
   const renderLink = (link: { name: string; href: string }, index: number, section: string) => {
     const isHashLink = link.href.startsWith("#");
+    const isInternal = link.href.startsWith("/");
 
-    if (isHashLink && location.pathname === "/") {
-      return (
-        <li key={`${section}-${index}`}>
-          <HashLink smooth to={link.href} className="text-sm text-muted-foreground hover:text-greekteal transition-colors">
-            {link.name}
-          </HashLink>
-        </li>
-      );
+    // Hash links scroll smoothly
+    if (isHashLink) {
+      if (location.pathname === "/") {
+        return (
+          <li key={`${section}-${index}`}>
+            <HashLink
+              smooth
+              to={link.href}
+              className="text-sm text-muted-foreground hover:text-greekteal transition-colors"
+            >
+              {link.name}
+            </HashLink>
+          </li>
+        );
+      } else {
+        return (
+          <li key={`${section}-${index}`}>
+            <Link
+              to={`/${link.href}`}
+              className="text-sm text-muted-foreground hover:text-greekteal transition-colors"
+            >
+              {link.name}
+            </Link>
+          </li>
+        );
+      }
     }
 
-    if (link.href.startsWith("/")) {
+    // Internal routes
+    if (isInternal) {
       return (
         <li key={`${section}-${index}`}>
-          <Link to={link.href} className="text-sm text-muted-foreground hover:text-greekteal transition-colors">
+          <Link
+            to={link.href}
+            className="text-sm text-muted-foreground hover:text-greekteal transition-colors"
+          >
             {link.name}
           </Link>
         </li>
       );
     }
 
+    // External links
     return (
       <li key={`${section}-${index}`}>
-        <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-greekteal transition-colors">
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-muted-foreground hover:text-greekteal transition-colors"
+        >
           {link.name}
         </a>
       </li>
@@ -112,7 +141,7 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="h-4 w-4 text-greekteal" />
-                  <a href="tel:+306987377673" className="hover:text-greekteal transition-colors">+30 6988529373</a>
+                  <a href="tel:+3069878529373" className="hover:text-greekteal transition-colors">+30 6988529373</a>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-4 w-4 text-greekteal" />

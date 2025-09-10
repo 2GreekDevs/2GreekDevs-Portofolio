@@ -90,9 +90,9 @@ const AboutSection = () => {
                 <div className="grid grid-cols-2 gap-4">
                   {[
                     { label: "Years Experience", value: "5+" },
-                    { label: "Projects Completed", value: "150+" },
-                    { label: "Happy Clients", value: "100+" },
-                    { label: "Countries Served", value: "15+" }
+                    { label: "Projects Completed", value: "8+" },
+                    { label: "Happy Clients", value: "10+" },
+                    { label: "Discord Members", value: "50+" },
                   ].map((stat, index) => (
                     <div key={index} className="text-center">
                       <div className="text-2xl font-bold text-greekteal">{stat.value}</div>

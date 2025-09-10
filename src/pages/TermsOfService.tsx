@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
 import {
   FileText,
   Users,
@@ -15,23 +14,9 @@ import {
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
-import Head from 'next/head';
+import { Helmet } from 'react-helmet';
 
 const TermsOfService = () => {
-  useEffect(() => {
-    document.title = "Terms of Service - 2GreekDevs";
-
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute(
-        'content',
-        'Review the Terms of Service for 2GreekDevs, including user responsibilities, intellectual property rights, and more.'
-      );
-    }
-  }, []);
-
-
-
   const sections = [
     {
       icon: FileText,
@@ -97,7 +82,7 @@ const TermsOfService = () => {
       icon: Globe,
       title: '8. Governing Law',
       content:
-        'These Terms will be governed by and interpreted in accordance with the laws of the jurisdiction of Greece, Athens and you submit to the non-exclusive jurisdiction of the state and federal courts located in Athens, Greece for the resolution of any disputes.',
+        'These Terms will be governed by and interpreted in accordance with the laws of Greece. You submit to the non-exclusive jurisdiction of the courts located in Athens, Greece for dispute resolution.',
     },
     {
       icon: CreditCard,
@@ -108,113 +93,120 @@ const TermsOfService = () => {
   ];
 
   return (
-    
-      <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-muted/20">
-        <Navbar />
-        <main id="main-content" className="flex-1 pt-20">
-          <div className="container mx-auto px-4 py-16">
-           <motion.div
-  key="terms-motion-wrapper"
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6 }}
-  className="max-w-5xl mx-auto"
->
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-muted/20">
+      <Helmet>
+        <title>Terms of Service | 2GreekDevs</title>
+        <meta
+          name="description"
+          content="Review the Terms of Service for 2GreekDevs, including user responsibilities, intellectual property rights, limitations of liability, and more."
+        />
+        <link rel="canonical" href="https://2greekdevs.gr/terms-of-service" />
+        <meta property="og:title" content="Terms of Service - 2GreekDevs" />
+        <meta
+          property="og:description"
+          content="Review the Terms of Service for 2GreekDevs, including user responsibilities, intellectual property rights, limitations of liability, and more."
+        />
+        <meta property="og:url" content="https://2greekdevs.gr/terms-of-service" />
+      </Helmet>
 
-              {/* Header Section */}
-              <div className="text-center mb-16">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-greekblue to-greekteal rounded-full mb-6">
-                  <Gavel className="w-8 h-8 text-white" />
-                </div>
-                <h1 className="text-5xl font-bold mb-4 gradient-text">
-                  Terms of Service
-                </h1>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  Please read these terms carefully before using our services. These terms govern your use of 2GreekDevs services.
-                </p>
-                <div className="mt-6 flex items-center justify-center gap-4">
-                  <span className="bg-greekblue/10 text-greekblue px-4 py-2 rounded-lg text-sm font-medium">
-                    Last updated: January 2024
-                  </span>
-                </div>
+      <Navbar />
+
+      <main id="main-content" className="flex-1 pt-20">
+        <div className="container mx-auto px-4 py-16">
+          <motion.div
+            key="tos-page"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-5xl mx-auto"
+          >
+            {/* Header Section */}
+            <header className="text-center mb-16">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-greekblue to-greekteal rounded-full mb-6">
+                <Gavel className="w-8 h-8 text-white" />
               </div>
+              <h1 className="text-5xl font-bold mb-4 gradient-text">Terms of Service</h1>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Please read these terms carefully before using our services. These terms govern your use of 2GreekDevs services.
+              </p>
+              <div className="mt-6 flex items-center justify-center gap-4">
+                <span className="bg-greekblue/10 text-greekblue px-4 py-2 rounded-lg text-sm font-medium">
+                  Last updated: January 2024
+                </span>
+              </div>
+            </header>
 
-              {/* Terms Sections */}
-              <div className="grid gap-8 mb-12">
-                {sections.map((section, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+            {/* Terms Sections */}
+            <section className="grid gap-8 mb-12">
+              {sections.map((section, index) => (
+                <motion.article
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Card
+                    className={`card-professional hover-lift ${
+                      section.highlight ? 'border-greekblue/50 bg-greekblue/5' : ''
+                    }`}
                   >
-                    <Card
-                      className={`card-professional hover-lift ${
-                        section.highlight ? 'border-greekblue/50 bg-greekblue/5' : ''
-                      }`}
-                    >
-                      <CardContent className="p-8">
-                        <div className="flex items-start gap-4">
-                          <div className="flex-shrink-0">
-                            <div
-                              className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                                section.highlight
-                                  ? 'bg-greekblue text-white'
-                                  : 'bg-gradient-to-r from-greekblue to-greekteal text-white'
-                              }`}
-                            >
-                              <section.icon className="w-6 h-6" />
-                            </div>
-                          </div>
-                          <div className="flex-1">
-                            <h2 className="text-2xl font-semibold mb-4 text-foreground">
-                              {section.title}
-                            </h2>
-                            {typeof section.content === 'string' ? (
-                              <p className="text-muted-foreground leading-relaxed text-lg space-y-2">
-                                {section.content}
-                              </p>
-                            ) : (
-                              <div className="text-muted-foreground leading-relaxed text-lg space-y-2">
-                                {section.content}
-                              </div>
-                            )}
+                    <CardContent className="p-8">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0">
+                          <div
+                            className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                              section.highlight
+                                ? 'bg-greekblue text-white'
+                                : 'bg-gradient-to-r from-greekblue to-greekteal text-white'
+                            }`}
+                          >
+                            <section.icon className="w-6 h-6" />
                           </div>
                         </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
+                        <div className="flex-1">
+                          <h2 className="text-2xl font-semibold mb-4 text-foreground">{section.title}</h2>
+                          {typeof section.content === 'string' ? (
+                            <p className="text-muted-foreground leading-relaxed text-lg">{section.content}</p>
+                          ) : (
+                            <div className="text-muted-foreground leading-relaxed text-lg">{section.content}</div>
+                          )}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.article>
+              ))}
+            </section>
 
-              {/* Extra Sections */}
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <Card className="card-professional border-orange-200 bg-orange-50/50 dark:bg-orange-950/20 dark:border-orange-800">
-                  <CardContent className="p-8">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-orange-700 dark:text-orange-400">
-                      <AlertTriangle className="w-5 h-5" />
-                      Service Termination
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      We reserve the right to terminate or suspend your account at any time for violations of these terms, with or without prior notice.
-                    </p>
-                  </CardContent>
-                </Card>
+            {/* Extra Info Sections */}
+            <section className="grid md:grid-cols-2 gap-8 mb-12">
+              <Card className="card-professional border-orange-200 bg-orange-50/50 dark:bg-orange-950/20 dark:border-orange-800">
+                <CardContent className="p-8">
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-orange-700 dark:text-orange-400">
+                    <AlertTriangle className="w-5 h-5" />
+                    Service Termination
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We reserve the right to terminate or suspend your account at any time for violations of these terms, with or without prior notice.
+                  </p>
+                </CardContent>
+              </Card>
 
-                <Card className="card-professional border-green-200 bg-green-50/50 dark:bg-green-950/20 dark:border-green-800">
-                  <CardContent className="p-8">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-green-700 dark:text-green-400">
-                      <Shield className="w-5 h-5" />
-                      Service Guarantee
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      We are committed to delivering high-quality services and will work with you to ensure your satisfaction with our deliverables.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
+              <Card className="card-professional border-green-200 bg-green-50/50 dark:bg-green-950/20 dark:border-green-800">
+                <CardContent className="p-8">
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-green-700 dark:text-green-400">
+                    <Shield className="w-5 h-5" />
+                    Service Guarantee
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We are committed to delivering high-quality services and will work with you to ensure your satisfaction with our deliverables.
+                  </p>
+                </CardContent>
+              </Card>
+            </section>
 
-              {/* Contact Section */}
+            {/* Contact Section */}
+            <section>
               <Card className="card-professional bg-gradient-to-r from-greekblue/5 to-greekteal/5 border-greekblue/20">
                 <CardContent className="p-8 text-center">
                   <Mail className="w-12 h-12 text-greekblue mx-auto mb-4" />
@@ -230,12 +222,12 @@ const TermsOfService = () => {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    
+            </section>
+          </motion.div>
+        </div>
+      </main>
+      <Footer />
+    </div>
   );
 };
 

@@ -4,37 +4,39 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 0 0% 98%;
-    --foreground: 222.2 84% 4.9%;
+:root {
+  /* Backgrounds */
+  --background: 210 20% 97%;      /* Very soft light grayish-blue, almost neutral */
+  --card: 210 15% 95%;            /* Slightly darker than background */
+  --popover: 210 15% 95%;         /* Matches card for consistency */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+  /* Text */
+  --foreground: 220 10% 20%;      /* Gentle charcoal, low contrast */
+  --card-foreground: 220 10% 20%;
+  --popover-foreground: 220 10% 20%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+  /* Primary & Accent */
+  --primary: 210 80% 50%;         /* Soft, calming blue */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 15% 90%;       /* Neutral secondary surfaces */
+  --secondary-foreground: 220 10% 20%;
+  --accent: 180 40% 50%;          /* Soft teal accent */
+  --accent-foreground: 0 0% 100%;
 
-    --primary: 210 100% 50%;
-    --primary-foreground: 210 40% 98%;
+  /* Muted & Destructive */
+  --muted: 210 10% 92%;           /* Low-contrast muted surfaces */
+  --muted-foreground: 215 10% 45%;
+  --destructive: 0 55% 55%;       /* Gentle red, noticeable but not harsh */
+  --destructive-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+  /* Borders & Inputs */
+  --border: 210 10% 88%;          /* Very soft gray borders */
+  --input: 210 10% 88%;
+  --ring: 210 20% 60%;            /* Subtle focus ring */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+  --radius: 0.5rem;
+}
 
-    --accent: 185 100% 45%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-  }
 
   .dark {
     --background: 222.2 20% 15%;
@@ -80,6 +82,8 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
   }
+
+
 }
 
 @layer components {

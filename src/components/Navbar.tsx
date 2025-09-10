@@ -10,6 +10,9 @@ import {
   Mail,
   Users,
   ShoppingCart,
+  CodeXml,
+  ChevronDown,
+  ChevronRight,
 } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { cn } from "@/lib/utils";
@@ -19,9 +22,9 @@ import banner2 from "@/assets/banner2.png";
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState<string[]>([]);
   const navigate = useNavigate();
 
-  // Lock scroll when mobile menu is open
   useEffect(() => {
     let scrollY = 0;
     if (mobileMenuOpen) {
@@ -53,14 +56,12 @@ const Navbar = () => {
     };
   }, [mobileMenuOpen]);
 
-  // Detect scroll for navbar background
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY >= 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && mobileMenuOpen) {
@@ -75,24 +76,51 @@ const Navbar = () => {
     { name: "Home", href: "/", icon: <Home className="w-5 h-5" /> },
     { name: "About", href: "#about", icon: <Info className="w-5 h-5" /> },
     { name: "Projects", href: "/projects", icon: <Folder className="w-5 h-5" /> },
+    {
+      name: "Services",
+      href: "/services",
+      icon: <CodeXml className="w-5 h-5" />,
+      dropdown: [
+        { name: "Web Development", href: "/services/web-development" },
+        { name: "Mobile Apps", href: "/services/mobile" },
+        {
+          name: "Discord Services",
+          href: "/discord-services",
+          subDropdown: [
+            { name: "Bot Development", href: "/services/discord-services/discord-bots" },
+            { name: "Server Setup", href: "/services/discord-services/discord-server-setup" },
+            { name: "Moderation Team", href: "/services/discord-services/moderation-team" },
+          ],
+        },
+        { name: "UI/UX Design", href: "/services/ui-ux-design" },
+      ],
+    },
     { name: "Contact", href: "#contact", icon: <Mail className="w-5 h-5" /> },
     { name: "Partners", href: "/partners", icon: <Users className="w-5 h-5" /> },
     { name: "e-shop", href: "/eshop", icon: <ShoppingCart className="w-5 h-5" /> },
   ];
 
-  // Scroll to top on page navigation links
   const handleLinkClick = (href: string) => {
     if (!href.startsWith("#")) {
       window.scrollTo({ top: 0, behavior: "auto" });
     }
     setMobileMenuOpen(false);
+    setOpenDropdowns([]);
+  };
+
+  const toggleDropdown = (name: string) => {
+    setOpenDropdowns((prev) =>
+      prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name]
+    );
   };
 
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled ? "bg-background/80 backdrop-blur-md shadow-md" : "bg-transparent"
+        scrolled
+          ? "bg-background/80 backdrop-blur-md shadow-md"
+          : "bg-transparent"
       )}
     >
       <div className="container mx-auto">
@@ -115,9 +143,78 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8 relative">
             {navLinks.map((link) =>
-              link.href.startsWith("#") ? (
+              link.dropdown ? (
+                <div key={link.name} className="relative group">
+                  <button
+                    className="dropdown-trigger flex items-center gap-1 text-foreground hover:text-greekteal transition-colors relative z-10 focus:outline-none bg-transparent border-none"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    {link.name}
+                    <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
+                  </button>
+
+                  {/* Dropdown */}
+                  <div
+                    className="absolute left-0 mt-2 w-56 
+                               bg-background text-foreground 
+                               shadow-lg rounded-xl py-2 z-20
+                               opacity-0 scale-95 invisible 
+                               group-hover:opacity-100 group-hover:scale-100 group-hover:visible 
+                               transition-all duration-200 origin-top"
+                  >
+                    {link.dropdown.map((item) =>
+                      item.subDropdown ? (
+                        <div key={item.name} className="relative group/sub">
+                          <button
+                            className="dropdown-trigger flex items-center justify-between w-full px-4 py-2 
+                                       text-sm text-muted-foreground hover:bg-muted hover:text-foreground 
+                                       rounded-md relative z-10 focus:outline-none bg-transparent border-none"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            {item.name}
+                            <ChevronRight className="w-4 h-4 ml-2 transition-transform duration-200 group-hover/sub:translate-x-1" />
+                          </button>
+
+                          <div
+                            className="absolute left-full top-0 ml-2 w-52 
+                                       bg-background text-foreground 
+                                       shadow-lg rounded-xl py-2 z-20
+                                       opacity-0 scale-95 invisible 
+                                       group-hover/sub:opacity-100 group-hover/sub:scale-100 group-hover/sub:visible 
+                                       transition-all duration-200 origin-top-left"
+                          >
+                            {item.subDropdown.map((sub) => (
+                              <Link
+                                key={sub.name}
+                                to={sub.href}
+                                onClick={() => handleLinkClick(sub.href)}
+                                className="block px-4 py-2 text-sm text-muted-foreground 
+                                           hover:bg-muted hover:text-foreground rounded-md"
+                              >
+                                {sub.name}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <Link
+                          key={item.name}
+                          to={item.href}
+                          onClick={() => handleLinkClick(item.href)}
+                          className="block px-4 py-2 text-sm text-muted-foreground 
+                                     hover:bg-muted hover:text-foreground rounded-md"
+                        >
+                          {item.name}
+                        </Link>
+                      )
+                    )}
+                  </div>
+                </div>
+              ) : link.href.startsWith("#") ? (
                 <a
                   key={link.name}
                   href={link.href}
@@ -191,14 +288,18 @@ const Navbar = () => {
           >
             <div className="px-4 pt-4">
               <div className="flex justify-between items-center">
-                <Link to="/" className="w-full text-center" onClick={() => handleLinkClick("/")}>
+                <Link
+                  to="/"
+                  className="w-full text-center"
+                  onClick={() => handleLinkClick("/")}
+                >
                   <img
-                    src="/banner2.png"
+                    src={banner2}
                     alt="2GreekDevs"
                     className="h-[70px] dark:hidden mx-auto"
                   />
                   <img
-                    src="/banner.png"
+                    src={banner1}
                     alt="2GreekDevs"
                     className="h-[70px] hidden dark:block mx-auto"
                   />
@@ -219,7 +320,78 @@ const Navbar = () => {
               aria-label="Mobile navigation links"
             >
               {navLinks.map((link) =>
-                link.href.startsWith("#") ? (
+                link.dropdown ? (
+                  <div key={link.name}>
+                    <button
+                      onClick={() => toggleDropdown(link.name)}
+                      className="dropdown-trigger flex items-center justify-between w-full px-4 py-2 rounded-xl hover:bg-muted transition-all text-base font-medium text-muted-foreground hover:text-foreground focus:outline-none bg-transparent border-none"
+                      aria-expanded={openDropdowns.includes(link.name)}
+                      aria-haspopup="true"
+                    >
+                      <span className="flex items-center gap-3">
+                        {link.icon}
+                        {link.name}
+                      </span>
+                      <ChevronDown
+                        className={cn(
+                          "w-4 h-4 transition-transform duration-200",
+                          openDropdowns.includes(link.name)
+                            ? "rotate-180"
+                            : "rotate-0"
+                        )}
+                      />
+                    </button>
+                    {openDropdowns.includes(link.name) && (
+                      <div className="ml-6 mt-2 space-y-2 bg-background text-foreground rounded-lg p-2 shadow-md">
+                        {link.dropdown.map((item) =>
+                          item.subDropdown ? (
+                            <div key={item.name}>
+                              <button
+                                onClick={() => toggleDropdown(item.name)}
+                                className="dropdown-trigger flex items-center justify-between w-full px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-muted hover:text-foreground focus:outline-none bg-transparent border-none"
+                                aria-expanded={openDropdowns.includes(item.name)}
+                                aria-haspopup="true"
+                              >
+                                <span>{item.name}</span>
+                                <ChevronDown
+                                  className={cn(
+                                    "w-4 h-4 transition-transform duration-200",
+                                    openDropdowns.includes(item.name)
+                                      ? "rotate-180"
+                                      : "rotate-0"
+                                  )}
+                                />
+                              </button>
+                              {openDropdowns.includes(item.name) && (
+                                <div className="ml-6 mt-2 space-y-2 bg-background text-foreground rounded-lg p-2 shadow-md">
+                                  {item.subDropdown.map((sub) => (
+                                    <Link
+                                      key={sub.name}
+                                      to={sub.href}
+                                      onClick={() => handleLinkClick(sub.href)}
+                                      className="block px-3 py-2 text-sm rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground"
+                                    >
+                                      {sub.name}
+                                    </Link>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            <Link
+                              key={item.name}
+                              to={item.href}
+                              onClick={() => handleLinkClick(item.href)}
+                              className="block px-3 py-2 text-sm rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground"
+                            >
+                              {item.name}
+                            </Link>
+                          )
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ) : link.href.startsWith("#") ? (
                   <a
                     key={link.name}
                     href={link.href}

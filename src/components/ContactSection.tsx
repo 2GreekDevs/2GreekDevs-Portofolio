@@ -85,25 +85,31 @@ const ContactSection = () => {
       details: "2greekdevs24@gmail.com",
       description: "Send us an email anytime"
     },
-    {
-      icon: Phone,
-      title: "Call Us",
-      details: "+30 6987377673",
-      details2: "+30 6988529373",
-      description: "Mon-Fri from 9am to 6pm"
-    },
-    {
-      icon: MapPin,
-      title: "Visit Us",
-      details: "SOON",
-      description: "Come say hello at our office"
-    },
-    {
+        {
       icon: Clock,
       title: "Working Hours",
       details: "24/7 Support",
       description: "We're always here to help"
+    },
+    {
+      icon: Phone,
+      title: "Call Us",
+      details2: "+30 6988529373",
+      description: "Mon-Fri from 9am to 6pm"
+    },
+        {
+      icon: Phone,
+      title: "Call Us",
+      details2: "+30 6988529373",
+      description: "Mon-Fri from 9am to 6pm"
     }
+    // {
+    //   icon: MapPin,
+    //   title: "Visit Us",
+    //   details: "SOON",
+    //   description: "Come say hello at our office"
+    // },
+
   ];
 
   const inquiryOptions = [

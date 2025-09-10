@@ -2,126 +2,81 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle } from "lucide-react";
+import { Helmet } from "react-helmet";
 import banner1 from "@/assets/banner.png";
 import banner2 from "@/assets/banner2.png";
 
 const ComingSoon = () => {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
   const [showPopup, setShowPopup] = useState(false);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const inputRef = useRef(null);
-  const popupRef = useRef(null);
-  const triggerRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const popupRef = useRef<HTMLDivElement | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
 
-  // Trap focus inside modal when open
+  // Trap focus inside modal
   useEffect(() => {
-    if (showPopup) {
-      const focusableElements = popupRef.current?.querySelectorAll(
-        'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
-      );
-      if (!focusableElements || focusableElements.length === 0) return;
+    if (!showPopup || !popupRef.current) return;
 
-      const firstEl = focusableElements[0];
-      const lastEl = focusableElements[focusableElements.length - 1];
+    const focusableElements = popupRef.current.querySelectorAll(
+      'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusableElements.length === 0) return;
 
-      function handleTab(e) {
-        if (e.key !== "Tab") return;
+    const firstEl = focusableElements[0] as HTMLElement;
+    const lastEl = focusableElements[focusableElements.length - 1] as HTMLElement;
 
-        if (e.shiftKey) {
-          // Shift + Tab
-          if (document.activeElement === firstEl) {
-            e.preventDefault();
-            lastEl.focus();
-          }
-        } else {
-          // Tab
-          if (document.activeElement === lastEl) {
-            e.preventDefault();
-            firstEl.focus();
-          }
+    function handleTab(e: KeyboardEvent) {
+      if (e.key !== "Tab") return;
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        }
+      } else {
+        if (document.activeElement === lastEl) {
+          e.preventDefault();
+          firstEl.focus();
         }
       }
-
-      document.addEventListener("keydown", handleTab);
-      return () => document.removeEventListener("keydown", handleTab);
     }
+
+    document.addEventListener("keydown", handleTab);
+    return () => document.removeEventListener("keydown", handleTab);
   }, [showPopup]);
 
-  // Restore focus to button after popup closes
+  // Restore focus to trigger button
   useEffect(() => {
-    if (!showPopup && triggerRef.current) {
-      triggerRef.current.focus();
-    }
+    if (!showPopup && triggerRef.current) triggerRef.current.focus();
   }, [showPopup]);
 
-  // Check localStorage on mount to auto-hide popup if subscribed
+  // Check subscription from localStorage
   useEffect(() => {
-    const subscribedFlag = localStorage.getItem("subscribed");
-    if (subscribedFlag === "true") {
-      setSubscribed(true);
-    }
+    if (localStorage.getItem("subscribed") === "true") setSubscribed(true);
   }, []);
 
-  // Timer for countdown
+  // Auto-focus input when popup opens
   useEffect(() => {
-    const launchDate = new Date();
-    launchDate.setDate(launchDate.getDate() + 30);
-
-    const timer = setInterval(() => {
-      const now = new Date();
-      const difference = launchDate.getTime() - now.getTime();
-
-      if (difference <= 0) {
-        clearInterval(timer);
-        return;
-      }
-
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      setTimeLeft({ days, hours, minutes, seconds });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  // Focus input on popup show
-  useEffect(() => {
-    if (showPopup && inputRef.current) {
-      inputRef.current.focus();
-    }
+    if (showPopup && inputRef.current) inputRef.current.focus();
   }, [showPopup]);
 
-  const validateEmail = (email) => {
-    // Basic email regex
-    const re = /\S+@\S+\.\S+/;
-    return re.test(email);
-  };
+  const validateEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
 
-  const handleSubscribe = async (e) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
     }
+
     setLoading(true);
-
     try {
-      // Simulate async API call
-      await new Promise((r) => setTimeout(r, 1500));
-
-      console.log("Subscribed email:", email);
+      await new Promise((r) => setTimeout(r, 1500)); // Simulate API call
       setEmail("");
       setSubscribed(true);
       localStorage.setItem("subscribed", "true");
@@ -130,7 +85,7 @@ const ComingSoon = () => {
         setSubscribed(false);
         setShowPopup(false);
       }, 2000);
-    } catch (err) {
+    } catch {
       setError("Subscription failed. Please try again.");
     } finally {
       setLoading(false);
@@ -138,19 +93,25 @@ const ComingSoon = () => {
   };
 
   return (
-   
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background to-muted/30 p-4 text-center">
+      {/* Helmet for SEO */}
+      <Helmet>
+        <title>Coming Soon - 2GreekDevs</title>
+        <meta
+          name="description"
+          content="Our e-Shop is coming soon! Subscribe to get notified when 2GreekDevs launches their online store."
+        />
+        <meta property="og:title" content="Coming Soon - 2GreekDevs" />
+        <meta
+          property="og:description"
+          content="Our e-Shop is coming soon! Subscribe to get notified when 2GreekDevs launches their online store."
+        />
+        <meta property="og:image" content="/2.png" />
+      </Helmet>
+
       <div className="max-w-3xl mx-auto space-y-8">
-        <img
-          src={banner2}
-          alt="2GreekDevs"
-          className="h-40 w-auto mx-auto dark:hidden"
-        />
-        <img
-          src={banner1}
-          alt="2GreekDevs"
-          className="h-40 w-auto mx-auto hidden dark:block"
-        />
+        <img src={banner2} alt="2GreekDevs" className="h-40 w-auto mx-auto dark:hidden" />
+        <img src={banner1} alt="2GreekDevs" className="h-40 w-auto mx-auto hidden dark:block" />
 
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
           Our e-Shop is Coming Soon
@@ -160,30 +121,11 @@ const ComingSoon = () => {
           We're working hard to bring you an amazing online shopping experience. Stay tuned!
         </p>
 
-        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto">
-          {[
-            { label: "Days", value: timeLeft.days },
-            { label: "Hours", value: timeLeft.hours },
-            { label: "Minutes", value: timeLeft.minutes },
-            { label: "Seconds", value: timeLeft.seconds },
-          ].map((item) => (
-            <div key={item.label} className="bg-card shadow-lg rounded-lg p-4">
-              <div className="text-3xl md:text-4xl font-bold text-primary">
-                {String(item.value).padStart(2, "0")}
-              </div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wider">
-                {item.label}
-              </div>
-            </div>
-          ))}
-        </div> */}
-
         <div className="max-w-md mx-auto space-y-4 pt-4">
-          <p className="text-muted-foreground">
-            Want to be notified when we launch?
-          </p>
+          <p className="text-muted-foreground">Want to be notified when we launch?</p>
           <div className="flex flex-col sm:flex-row gap-2">
             <Button
+              ref={triggerRef}
               onClick={(e) => {
                 e.preventDefault();
                 setShowPopup(true);
@@ -193,13 +135,13 @@ const ComingSoon = () => {
             >
               Get Notified
             </Button>
-
             <Button className="w-full" asChild>
               <a href="/">Back to Home</a>
             </Button>
           </div>
         </div>
 
+        {/* Social Media */}
         <div className="flex justify-center space-x-4 pt-8">
           <a
             href="https://www.facebook.com/profile.php?id=61560473642817"
@@ -240,6 +182,7 @@ const ComingSoon = () => {
         </div>
       </div>
 
+      {/* Subscribe Modal */}
       <AnimatePresence>
         {showPopup && (
           <motion.div
@@ -262,7 +205,9 @@ const ComingSoon = () => {
               >
                 &times;
               </button>
+
               <h2 className="text-xl font-semibold mb-4">Subscribe to Updates</h2>
+
               {!subscribed ? (
                 <form onSubmit={handleSubscribe}>
                   <input

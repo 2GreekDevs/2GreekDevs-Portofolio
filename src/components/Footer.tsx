@@ -19,9 +19,9 @@ const Footer = () => {
 
   const footerLinks = {
     services: [
-      { name: "Web Development", href: "#services" },
-      { name: "Mobile Apps", href: "#services" },
-      { name: "UI/UX Design", href: "#services" },
+      { name: "Web Development", href: "/services#web-development" },
+      { name: "Mobile Apps", href: "/services#mobile-apps" },
+      { name: "UI/UX Design", href: "/services#ui-ux-design" },
       { name: "E-commerce", href: "#services" },
     ],
     company: [
@@ -143,10 +143,10 @@ const Footer = () => {
                   <Phone className="h-4 w-4 text-greekteal" />
                   <a href="tel:+3069878529373" className="hover:text-greekteal transition-colors">+30 6988529373</a>
                 </div>
-                <div className="flex items-center space-x-3">
+                {/* <div className="flex items-center space-x-3">
                   <MapPin className="h-4 w-4 text-greekteal" />
                   <span>Soon</span>
-                </div>
+                </div> */}
               </div>
             </motion.div>
           </div>

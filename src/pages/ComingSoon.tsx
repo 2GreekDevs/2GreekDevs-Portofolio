@@ -63,7 +63,7 @@ const ComingSoon = () => {
     e.preventDefault();
     setError("");
 
-    // 🛡️ Honeypot check (bots usually fill all fields)
+    // Honeypot check
     if (honeypot.trim() !== "") {
       setError("Spam detected.");
       return;
@@ -74,7 +74,7 @@ const ComingSoon = () => {
       return;
     }
 
-    // 🛡️ Rate limit check
+    // Rate limit check
     const lastSubmit = localStorage.getItem("lastSubmitTime");
     const now = Date.now();
     if (lastSubmit && now - parseInt(lastSubmit) < 30 * 1000) {
@@ -90,7 +90,7 @@ const ComingSoon = () => {
           method: "POST",
           body: new URLSearchParams({
             email: email.trim().toLowerCase(),
-            origin: window.location.origin, // send origin to satisfy Apps Script check
+            origin: window.location.origin,
           }),
         }
       );
@@ -100,8 +100,7 @@ const ComingSoon = () => {
       if (resultText === "Success") {
         setEmail("");
         setSubscribed(true);
-        localStorage.setItem("lastSubmitTime", now.toString()); // save timestamp
-
+        localStorage.setItem("lastSubmitTime", now.toString());
         setTimeout(() => {
           setSubscribed(false);
           setShowPopup(false);
@@ -123,7 +122,6 @@ const ComingSoon = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background to-muted/30 p-4 text-center">
-      {/* Helmet for SEO */}
       <Helmet>
         <title>Coming Soon - 2GreekDevs</title>
         <meta
@@ -168,8 +166,28 @@ const ComingSoon = () => {
               <a href="/">Back to Home</a>
             </Button>
           </div>
-        </div>
 
+          {/* Social Media Links */}
+          <div className="flex justify-center space-x-4 pt-8 text-2xl">
+  {[
+    { href: "https://www.facebook.com/profile.php?id=61560473642817", icon: "ri-facebook-fill", color: "hover:text-blue-600" },
+    { href: "https://discord.gg/dHCvUaFAAH", icon: "ri-discord-fill", color: "hover:text-indigo-600" },
+    { href: "https://www.instagram.com/2greekdevs/", icon: "ri-instagram-fill", color: "hover:text-pink-600" },
+    { href: "https://www.linkedin.com/in/2greek-devs-3a2097329/", icon: "ri-linkedin-fill", color: "hover:text-blue-700" },
+  ].map((social) => (
+    <a
+      key={social.href}
+      href={social.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`transition-colors ${social.color}`}
+      aria-label={social.icon}
+    >
+      <i className={`${social.icon}`}></i>
+    </a>
+  ))}
+</div>
+        </div>
       </div>
 
       {/* Subscribe Modal */}
@@ -202,7 +220,7 @@ const ComingSoon = () => {
 
               {!subscribed ? (
                 <form onSubmit={handleSubscribe} className="space-y-4">
-                  {/* Honeypot field - invisible to humans */}
+                  {/* Honeypot */}
                   <input
                     type="text"
                     name="website"
@@ -212,7 +230,6 @@ const ComingSoon = () => {
                     tabIndex={-1}
                     autoComplete="off"
                   />
-
                   <input
                     ref={inputRef}
                     type="email"

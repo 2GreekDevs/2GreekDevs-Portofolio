@@ -9,6 +9,7 @@ import banner2 from "@/assets/banner2.png";
 const ComingSoon = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [email, setEmail] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -19,7 +20,6 @@ const ComingSoon = () => {
   // Trap focus inside modal
   useEffect(() => {
     if (!showPopup || !popupRef.current) return;
-
     const focusableElements = popupRef.current.querySelectorAll(
       'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
     );
@@ -30,7 +30,6 @@ const ComingSoon = () => {
 
     function handleTab(e: KeyboardEvent) {
       if (e.key !== "Tab") return;
-
       if (e.shiftKey) {
         if (document.activeElement === firstEl) {
           e.preventDefault();
@@ -53,11 +52,6 @@ const ComingSoon = () => {
     if (!showPopup && triggerRef.current) triggerRef.current.focus();
   }, [showPopup]);
 
-  // Check subscription from localStorage
-  useEffect(() => {
-    if (localStorage.getItem("subscribed") === "true") setSubscribed(true);
-  }, []);
-
   // Auto-focus input when popup opens
   useEffect(() => {
     if (showPopup && inputRef.current) inputRef.current.focus();
@@ -69,23 +63,58 @@ const ComingSoon = () => {
     e.preventDefault();
     setError("");
 
+    // 🛡️ Honeypot check (bots usually fill all fields)
+    if (honeypot.trim() !== "") {
+      setError("Spam detected.");
+      return;
+    }
+
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
     }
 
+    // 🛡️ Rate limit check
+    const lastSubmit = localStorage.getItem("lastSubmitTime");
+    const now = Date.now();
+    if (lastSubmit && now - parseInt(lastSubmit) < 30 * 1000) {
+      setError("Please wait before subscribing again.");
+      return;
+    }
+
     setLoading(true);
     try {
-      await new Promise((r) => setTimeout(r, 1500)); // Simulate API call
-      setEmail("");
-      setSubscribed(true);
-      localStorage.setItem("subscribed", "true");
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbwkY40Ego4xdumCw7VdLrH4X2mLL_iLuSCMRXmB9xsfmEbgHcYlX8n-8-SLUO7McLpv/exec",
+        {
+          method: "POST",
+          body: new URLSearchParams({
+            email: email.trim().toLowerCase(),
+            origin: window.location.origin, // send origin to satisfy Apps Script check
+          }),
+        }
+      );
 
-      setTimeout(() => {
-        setSubscribed(false);
-        setShowPopup(false);
-      }, 2000);
-    } catch {
+      const resultText = await response.text();
+
+      if (resultText === "Success") {
+        setEmail("");
+        setSubscribed(true);
+        localStorage.setItem("lastSubmitTime", now.toString()); // save timestamp
+
+        setTimeout(() => {
+          setSubscribed(false);
+          setShowPopup(false);
+        }, 2000);
+      } else if (resultText === "Already subscribed") {
+        setError("This email is already subscribed!");
+      } else if (resultText === "Invalid origin") {
+        setError("Subscription failed: invalid domain.");
+      } else {
+        setError("Subscription failed. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
       setError("Subscription failed. Please try again.");
     } finally {
       setLoading(false);
@@ -141,45 +170,6 @@ const ComingSoon = () => {
           </div>
         </div>
 
-        {/* Social Media */}
-        <div className="flex justify-center space-x-4 pt-8">
-          <a
-            href="https://www.facebook.com/profile.php?id=61560473642817"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-blue-600 transition-colors"
-            aria-label="Facebook"
-          >
-            <i className="fab fa-facebook-f text-2xl"></i>
-          </a>
-          <a
-            href="https://discord.gg/dHCvUaFAAH"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-indigo-600 transition-colors"
-            aria-label="Discord"
-          >
-            <i className="fab fa-discord text-2xl"></i>
-          </a>
-          <a
-            href="https://www.instagram.com/2greekdevs/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-pink-600 transition-colors"
-            aria-label="Instagram"
-          >
-            <i className="fab fa-instagram text-2xl"></i>
-          </a>
-          <a
-            href="https://www.linkedin.com/in/2greek-devs-3a2097329/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-blue-700 transition-colors"
-            aria-label="LinkedIn"
-          >
-            <i className="fab fa-linkedin-in text-2xl"></i>
-          </a>
-        </div>
       </div>
 
       {/* Subscribe Modal */}
@@ -193,23 +183,36 @@ const ComingSoon = () => {
           >
             <motion.div
               ref={popupRef}
-              className="bg-white p-6 rounded-2xl shadow-2xl w-80 relative"
+              className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-3xl shadow-xl w-11/12 max-w-md relative"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
             >
               <button
-                className="absolute top-2 right-3 text-gray-500 hover:text-red-500 text-xl"
+                className="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl transition"
                 onClick={() => setShowPopup(false)}
                 aria-label="Close"
               >
                 &times;
               </button>
 
-              <h2 className="text-xl font-semibold mb-4">Subscribe to Updates</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
+                Subscribe to Updates
+              </h2>
 
               {!subscribed ? (
-                <form onSubmit={handleSubscribe}>
+                <form onSubmit={handleSubscribe} className="space-y-4">
+                  {/* Honeypot field - invisible to humans */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+
                   <input
                     ref={inputRef}
                     type="email"
@@ -217,16 +220,18 @@ const ComingSoon = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className={`w-full border p-2 rounded-lg mb-2 focus:outline-none focus:ring-2 ${
-                      error ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
+                    className={`w-full border rounded-xl p-3 text-gray-800 dark:text-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition ${
+                      error ? "border-red-500 focus:ring-red-500" : "border-gray-300 dark:border-gray-600"
                     }`}
                   />
-                  {error && <p className="text-sm text-red-600 mb-2">{error}</p>}
+                  {error && <p className="text-sm text-red-600">{error}</p>}
                   <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full py-2 rounded-lg text-white transition ${
-                      loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+                    className={`w-full py-3 rounded-xl text-white font-medium transition ${
+                      loading
+                        ? "bg-blue-400 cursor-not-allowed"
+                        : "bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
                     }`}
                   >
                     {loading ? (
@@ -256,9 +261,11 @@ const ComingSoon = () => {
                   </button>
                 </form>
               ) : (
-                <div className="flex flex-col items-center justify-center text-green-600">
-                  <CheckCircle className="w-12 h-12 mb-2" />
-                  <p className="font-medium">Subscribed successfully!</p>
+                <div className="flex flex-col items-center justify-center text-green-600 space-y-2">
+                  <CheckCircle className="w-16 h-16" />
+                  <p className="text-lg font-medium text-gray-800 dark:text-gray-100">
+                    Subscribed successfully!
+                  </p>
                 </div>
               )}
             </motion.div>

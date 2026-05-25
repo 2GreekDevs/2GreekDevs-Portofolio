@@ -21,12 +21,14 @@ const ComingSoon = () => {
   useEffect(() => {
     if (!showPopup || !popupRef.current) return;
     const focusableElements = popupRef.current.querySelectorAll(
-      'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])',
     );
     if (focusableElements.length === 0) return;
 
     const firstEl = focusableElements[0] as HTMLElement;
-    const lastEl = focusableElements[focusableElements.length - 1] as HTMLElement;
+    const lastEl = focusableElements[
+      focusableElements.length - 1
+    ] as HTMLElement;
 
     function handleTab(e: KeyboardEvent) {
       if (e.key !== "Tab") return;
@@ -92,7 +94,7 @@ const ComingSoon = () => {
             email: email.trim().toLowerCase(),
             origin: window.location.origin,
           }),
-        }
+        },
       );
 
       const resultText = await response.text();
@@ -137,19 +139,30 @@ const ComingSoon = () => {
       </Helmet>
 
       <div className="max-w-3xl mx-auto space-y-8">
-        <img src={banner2} alt="2GreekDevs" className="h-40 w-auto mx-auto dark:hidden" />
-        <img src={banner1} alt="2GreekDevs" className="h-40 w-auto mx-auto hidden dark:block" />
+        <img
+          src={banner2}
+          alt="2GreekDevs"
+          className="h-40 w-auto mx-auto dark:hidden"
+        />
+        <img
+          src={banner1}
+          alt="2GreekDevs"
+          className="h-40 w-auto mx-auto hidden dark:block"
+        />
 
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
           Our e-Shop is Coming Soon
         </h1>
 
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          We're working hard to bring you an amazing online shopping experience. Stay tuned!
+          We're working hard to bring you an amazing online shopping experience.
+          Stay tuned!
         </p>
 
         <div className="max-w-md mx-auto space-y-4 pt-4">
-          <p className="text-muted-foreground">Want to be notified when we launch?</p>
+          <p className="text-muted-foreground">
+            Want to be notified when we launch?
+          </p>
           <div className="flex flex-col sm:flex-row gap-2">
             <Button
               ref={triggerRef}
@@ -169,24 +182,40 @@ const ComingSoon = () => {
 
           {/* Social Media Links */}
           <div className="flex justify-center space-x-4 pt-8 text-2xl">
-  {[
-    { href: "https://www.facebook.com/profile.php?id=61560473642817", icon: "ri-facebook-fill", color: "hover:text-blue-600" },
-    { href: "https://discord.gg/dHCvUaFAAH", icon: "ri-discord-fill", color: "hover:text-indigo-600" },
-    { href: "https://www.instagram.com/2greekdevs/", icon: "ri-instagram-fill", color: "hover:text-pink-600" },
-    { href: "https://www.linkedin.com/in/2greek-devs-3a2097329/", icon: "ri-linkedin-fill", color: "hover:text-blue-700" },
-  ].map((social) => (
-    <a
-      key={social.href}
-      href={social.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`transition-colors ${social.color}`}
-      aria-label={social.icon}
-    >
-      <i className={`${social.icon}`}></i>
-    </a>
-  ))}
-</div>
+            {[
+              {
+                href: "https://www.facebook.com/profile.php?id=61560473642817",
+                icon: "ri-facebook-fill",
+                color: "hover:text-blue-600",
+              },
+              {
+                href: "https://discord.gg/dHCvUaFAAH",
+                icon: "ri-discord-fill",
+                color: "hover:text-indigo-600",
+              },
+              {
+                href: "https://www.instagram.com/2greekdevs/",
+                icon: "ri-instagram-fill",
+                color: "hover:text-pink-600",
+              },
+              {
+                href: "https://www.linkedin.com/in/2greek-devs-3a2097329/",
+                icon: "ri-linkedin-fill",
+                color: "hover:text-blue-700",
+              },
+            ].map((social) => (
+              <a
+                key={social.href}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`transition-colors ${social.color}`}
+                aria-label={social.icon}
+              >
+                <i className={`${social.icon}`}></i>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -238,7 +267,9 @@ const ComingSoon = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     className={`w-full border rounded-xl p-3 text-gray-800 dark:text-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition ${
-                      error ? "border-red-500 focus:ring-red-500" : "border-gray-300 dark:border-gray-600"
+                      error
+                        ? "border-red-500 focus:ring-red-500"
+                        : "border-gray-300 dark:border-gray-600"
                     }`}
                   />
                   {error && <p className="text-sm text-red-600">{error}</p>}

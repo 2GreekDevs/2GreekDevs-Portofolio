@@ -19,11 +19,8 @@ import DiscordSetup from "./pages/services/discord-services/DiscordSetup.tsx";
 import DiscordBots from "./pages/services/discord-services/DiscordBots.tsx";
 import ModerationTeam from "./pages/services/discord-services/Moderation.tsx";
 
-
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
-
-
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -49,17 +46,29 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/projects" element={<Projects />} />
-          
-              <Route path="/services/web-development" element={<WebDevelopment />} />
-              {/* <Route path="/services/mobile-apps" element={<MobileApps />} /> */}
-              <Route path="/services/ui-ux-design" element={<UIUXDesign />} />
-              <Route path="/services/discord-services/discord-server-setup" element={<DiscordSetup />} />
-              <Route path="/services/discord-services/discord-bots" element={<DiscordBots />} />
-              <Route path="/services/discord-services/moderation-team" element={<ModerationTeam />} />
-              {/* <Route path="/services/consulting" element={<Consulting />} /> */}
-          <Route path="/partners" element={<ComingSoon />} /> 
+
+          <Route
+            path="/services/web-development"
+            element={<WebDevelopment />}
+          />
+          {/* <Route path="/services/mobile-apps" element={<MobileApps />} /> */}
+          <Route path="/services/ui-ux-design" element={<UIUXDesign />} />
+          <Route
+            path="/services/discord-services/discord-server-setup"
+            element={<DiscordSetup />}
+          />
+          <Route
+            path="/services/discord-services/discord-bots"
+            element={<DiscordBots />}
+          />
+          <Route
+            path="/services/discord-services/moderation-team"
+            element={<ModerationTeam />}
+          />
+          {/* <Route path="/services/consulting" element={<Consulting />} /> */}
+          <Route path="/partners" element={<ComingSoon />} />
           <Route path="/coming-soon" element={<ComingSoon />} />
-          <Route path="/eshop" element={<ComingSoon />} /> 
+          <Route path="/eshop" element={<ComingSoon />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="*" element={<NotFound />} />

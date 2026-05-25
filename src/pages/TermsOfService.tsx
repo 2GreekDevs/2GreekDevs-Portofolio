@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import {
   FileText,
   Users,
@@ -10,85 +10,106 @@ import {
   Globe,
   Ban,
   CreditCard,
-} from 'lucide-react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import { Card, CardContent } from '@/components/ui/card';
-import { Helmet } from 'react-helmet';
+} from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Card, CardContent } from "@/components/ui/card";
+import { Helmet } from "react-helmet";
 
 const TermsOfService = () => {
   const sections = [
     {
       icon: FileText,
-      title: '1. Acceptance of Terms',
+      title: "1. Acceptance of Terms",
       content:
-        'By accessing and using the services provided by 2GreekDevs, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these terms, please do not use our services.',
+        "By accessing and using the services provided by 2GreekDevs, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these terms, please do not use our services.",
       highlight: true,
     },
     {
       icon: Users,
-      title: '2. Description of Service',
+      title: "2. Description of Service",
       content:
-        '2GreekDevs provides professional web development, mobile application development, and digital consulting services to clients worldwide. We specialize in creating custom solutions tailored to your business needs.',
+        "2GreekDevs provides professional web development, mobile application development, and digital consulting services to clients worldwide. We specialize in creating custom solutions tailored to your business needs.",
     },
     {
       icon: Shield,
-      title: '3. User Responsibilities',
+      title: "3. User Responsibilities",
       content:
-        'Users are responsible for providing accurate information and maintaining the confidentiality of their account credentials. You agree to use our services in compliance with all applicable laws and regulations.',
+        "Users are responsible for providing accurate information and maintaining the confidentiality of their account credentials. You agree to use our services in compliance with all applicable laws and regulations.",
     },
     {
       icon: Gavel,
-      title: '4. Intellectual Property',
+      title: "4. Intellectual Property",
       content:
-        'All content, features, and functionality of our services are owned by 2GreekDevs and are protected by international copyright, trademark, and other intellectual property laws.',
+        "All content, features, and functionality of our services are owned by 2GreekDevs and are protected by international copyright, trademark, and other intellectual property laws.",
     },
     {
       icon: AlertTriangle,
-      title: '5. Limitation of Liability',
+      title: "5. Limitation of Liability",
       content:
-        '2GreekDevs shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our services, except as required by applicable law.',
+        "2GreekDevs shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our services, except as required by applicable law.",
     },
     {
       icon: Ban,
-      title: '6. Restrictions',
+      title: "6. Restrictions",
       content: (
         <>
           <p className="mb-4">
-            You are specifically restricted from engaging in any of the following activities:
+            You are specifically restricted from engaging in any of the
+            following activities:
           </p>
           <ul className="list-disc list-inside space-y-2">
-            <li>Republishing any website material in other media without prior consent</li>
-            <li>Selling, sublicensing, or otherwise commercializing website material</li>
-            <li>Using the website in a manner that could damage it or impair performance</li>
+            <li>
+              Republishing any website material in other media without prior
+              consent
+            </li>
+            <li>
+              Selling, sublicensing, or otherwise commercializing website
+              material
+            </li>
+            <li>
+              Using the website in a manner that could damage it or impair
+              performance
+            </li>
             <li>Disrupting or limiting access for other users</li>
-            <li>Violating any applicable laws or regulations while using the website</li>
-            <li>Engaging in data mining, data harvesting, or similar data extraction practices</li>
-            <li>Attempting to access restricted areas of the website without authorization</li>
+            <li>
+              Violating any applicable laws or regulations while using the
+              website
+            </li>
+            <li>
+              Engaging in data mining, data harvesting, or similar data
+              extraction practices
+            </li>
+            <li>
+              Attempting to access restricted areas of the website without
+              authorization
+            </li>
           </ul>
           <p className="mt-4">
-            <strong>Note:</strong> 2GreekDevs reserves the right to restrict access to any part of the website at any time, at our sole discretion.
+            <strong>Note:</strong> 2GreekDevs reserves the right to restrict
+            access to any part of the website at any time, at our sole
+            discretion.
           </p>
         </>
       ),
     },
     {
       icon: RefreshCw,
-      title: '7. Changes to Terms',
+      title: "7. Changes to Terms",
       content:
-        '2GreekDevs reserves the right to modify these Terms at any time. Continued use of our services after changes indicates acceptance of the new terms.',
+        "2GreekDevs reserves the right to modify these Terms at any time. Continued use of our services after changes indicates acceptance of the new terms.",
     },
     {
       icon: Globe,
-      title: '8. Governing Law',
+      title: "8. Governing Law",
       content:
-        'These Terms will be governed by and interpreted in accordance with the laws of Greece. You submit to the non-exclusive jurisdiction of the courts located in Athens, Greece for dispute resolution.',
+        "These Terms will be governed by and interpreted in accordance with the laws of Greece. You submit to the non-exclusive jurisdiction of the courts located in Athens, Greece for dispute resolution.",
     },
     {
       icon: CreditCard,
-      title: '9. Payments & Refunds',
+      title: "9. Payments & Refunds",
       content:
-        'All payments for services must be made in full before project delivery unless otherwise agreed upon. Refunds are only issued under specific conditions and at our discretion.',
+        "All payments for services must be made in full before project delivery unless otherwise agreed upon. Refunds are only issued under specific conditions and at our discretion.",
     },
   ];
 
@@ -106,7 +127,10 @@ const TermsOfService = () => {
           property="og:description"
           content="Review the Terms of Service for 2GreekDevs, including user responsibilities, intellectual property rights, limitations of liability, and more."
         />
-        <meta property="og:url" content="https://2greekdevs.gr/terms-of-service" />
+        <meta
+          property="og:url"
+          content="https://2greekdevs.gr/terms-of-service"
+        />
       </Helmet>
 
       <Navbar />
@@ -125,9 +149,12 @@ const TermsOfService = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-greekblue to-greekteal rounded-full mb-6">
                 <Gavel className="w-8 h-8 text-white" />
               </div>
-              <h1 className="text-5xl font-bold mb-4 gradient-text">Terms of Service</h1>
+              <h1 className="text-5xl font-bold mb-4 gradient-text">
+                Terms of Service
+              </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Please read these terms carefully before using our services. These terms govern your use of 2GreekDevs services.
+                Please read these terms carefully before using our services.
+                These terms govern your use of 2GreekDevs services.
               </p>
               <div className="mt-6 flex items-center justify-center gap-4">
                 <span className="bg-greekblue/10 text-greekblue px-4 py-2 rounded-lg text-sm font-medium">
@@ -147,7 +174,9 @@ const TermsOfService = () => {
                 >
                   <Card
                     className={`card-professional hover-lift ${
-                      section.highlight ? 'border-greekblue/50 bg-greekblue/5' : ''
+                      section.highlight
+                        ? "border-greekblue/50 bg-greekblue/5"
+                        : ""
                     }`}
                   >
                     <CardContent className="p-8">
@@ -156,19 +185,25 @@ const TermsOfService = () => {
                           <div
                             className={`w-12 h-12 rounded-lg flex items-center justify-center ${
                               section.highlight
-                                ? 'bg-greekblue text-white'
-                                : 'bg-gradient-to-r from-greekblue to-greekteal text-white'
+                                ? "bg-greekblue text-white"
+                                : "bg-gradient-to-r from-greekblue to-greekteal text-white"
                             }`}
                           >
                             <section.icon className="w-6 h-6" />
                           </div>
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-2xl font-semibold mb-4 text-foreground">{section.title}</h2>
-                          {typeof section.content === 'string' ? (
-                            <p className="text-muted-foreground leading-relaxed text-lg">{section.content}</p>
+                          <h2 className="text-2xl font-semibold mb-4 text-foreground">
+                            {section.title}
+                          </h2>
+                          {typeof section.content === "string" ? (
+                            <p className="text-muted-foreground leading-relaxed text-lg">
+                              {section.content}
+                            </p>
                           ) : (
-                            <div className="text-muted-foreground leading-relaxed text-lg">{section.content}</div>
+                            <div className="text-muted-foreground leading-relaxed text-lg">
+                              {section.content}
+                            </div>
                           )}
                         </div>
                       </div>
@@ -187,7 +222,9 @@ const TermsOfService = () => {
                     Service Termination
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    We reserve the right to terminate or suspend your account at any time for violations of these terms, with or without prior notice.
+                    We reserve the right to terminate or suspend your account at
+                    any time for violations of these terms, with or without
+                    prior notice.
                   </p>
                 </CardContent>
               </Card>
@@ -199,7 +236,9 @@ const TermsOfService = () => {
                     Service Guarantee
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    We are committed to delivering high-quality services and will work with you to ensure your satisfaction with our deliverables.
+                    We are committed to delivering high-quality services and
+                    will work with you to ensure your satisfaction with our
+                    deliverables.
                   </p>
                 </CardContent>
               </Card>
@@ -210,9 +249,12 @@ const TermsOfService = () => {
               <Card className="card-professional bg-gradient-to-r from-greekblue/5 to-greekteal/5 border-greekblue/20">
                 <CardContent className="p-8 text-center">
                   <Mail className="w-12 h-12 text-greekblue mx-auto mb-4" />
-                  <h3 className="text-2xl font-semibold mb-4">Need Clarification?</h3>
+                  <h3 className="text-2xl font-semibold mb-4">
+                    Need Clarification?
+                  </h3>
                   <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                    If you have any questions about these Terms of Service or need clarification on any point, we're here to help.
+                    If you have any questions about these Terms of Service or
+                    need clarification on any point, we're here to help.
                   </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <div className="inline-flex items-center gap-2 text-greekblue font-medium">

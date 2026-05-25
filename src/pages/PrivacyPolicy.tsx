@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from 'react-router-dom';
 
 const PrivacyPolicy = () => {
   const sections = [
@@ -48,27 +49,29 @@ const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-muted/20">
       {/* SEO meta tags */}
-      <Helmet>
-        <title>Privacy Policy | 2GreekDevs</title>
-        <meta
-          name="description"
-          content="Privacy Policy of 2GreekDevs: Learn how we collect, use, and protect your personal data, including cookies, security measures, and user rights."
-        />
-        {/* FIXED: Removed the '#' symbol */}
-        <link rel="canonical" href="https://2greekdevs.gr/privacy-policy" />
+ <Helmet>
+  <title>Privacy Policy | 2GreekDevs</title>
+  <meta
+    name="description"
+    content="Privacy Policy of 2GreekDevs: Learn how we collect, use, and protect your personal data, including cookies, security measures, and user rights."
+  />
+  <meta
+    name="keywords"
+    content="2greekdevs, privacy policy, data protection, cookies, ελληνική κοινότητα προγραμματισμού"
+  />
+  <link rel="canonical" href="https://2greekdevs.gr/privacy-policy" />
 
-        {/* Open Graph */}
-        <meta property="og:title" content="Privacy Policy | 2GreekDevs" />
-        <meta
-          property="og:description"
-          content="Understand how 2GreekDevs collects, uses, and protects your personal information."
-        />
-        {/* FIXED: Removed the '#' symbol */}
-        <meta
-          property="og:url"
-          content="https://2greekdevs.gr/privacy-policy"
-        />
-      </Helmet>
+  {/* ADDED: Open Graph tags to look professional when shared */}
+  <meta property="og:title" content="Privacy Policy | 2GreekDevs" />
+  <meta
+    property="og:description"
+    content="Learn how 2GreekDevs collects, handles, and protects your personal data and security configurations."
+  />
+  <meta property="og:url" content="https://2greekdevs.gr/privacy-policy" />
+</Helmet>
+
+
+
       <Navbar />
 
       <main className="flex-1 pt-20">

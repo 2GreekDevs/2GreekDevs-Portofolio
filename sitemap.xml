@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://2greekdevs.gr/</loc>
+    <priority>1.00</priority>
+  </url>
+  
+  <url>
+    <loc>https://2greekdevs.gr/projects</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://2greekdevs.gr/partners</loc>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://2greekdevs.gr/eshop</loc>
+    <priority>0.50</priority>
+  </url>
+
+  <url>
+    <loc>https://2greekdevs.gr/services/web-development</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://2greekdevs.gr/services/ui-ux-design</loc>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://2greekdevs.gr/services/discord-services/discord-server-setup</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://2greekdevs.gr/services/discord-services/discord-bots</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://2greekdevs.gr/services/discord-services/moderation-team</loc>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://2greekdevs.gr/terms-of-service</loc>
+    <priority>0.30</priority>
+  </url>
+  <url>
+    <loc>https://2greekdevs.gr/privacy-policy</loc>
+    <priority>0.30</priority>
+  </url>
+</urlset>

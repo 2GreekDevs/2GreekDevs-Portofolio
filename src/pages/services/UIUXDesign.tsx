@@ -72,7 +72,7 @@ const UIUXDesign = () => {
           name="description"
           content="Discover 2GreekDevs' UI/UX design services — from user research and prototyping to polished design systems. We craft user-centered solutions that balance beauty and usability."
         />
-        <link rel="canonical" href="https://2greekdevs.gr/ui-ux-design" />
+        <link rel="canonical" href="https://2greekdevs.gr/services/ui-ux-design" />
         <meta property="og:title" content="UI/UX Design - 2GreekDevs" />
         <meta
           property="og:description"

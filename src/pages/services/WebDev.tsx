@@ -52,20 +52,23 @@ const WebDevelopment = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Web Development | 2GreekDevs</title>
-        <meta
-          name="description"
-          content="2GreekDevs builds modern, responsive, and SEO-friendly websites using React, Next.js, and TypeScript. Fast, secure, and scalable web development tailored to your needs."
-        />
-        <link rel="canonical" href="https://2greekdevs.gr/web-development" />
-        <meta property="og:title" content="Web Development - 2GreekDevs" />
-        <meta
-          property="og:description"
-          content="Transform your ideas into powerful, scalable web applications. Explore 2GreekDevs’ modern web development services with React, Next.js, and TypeScript."
-        />
-        <meta property="og:url" content="https://2greekdevs.gr/web-development" />
-      </Helmet>
+<Helmet>
+  <title>Web Development | 2GreekDevs</title>
+  <meta
+    name="description"
+    content="2GreekDevs builds modern, responsive, and SEO-friendly websites using React, Next.js, and TypeScript. Fast, secure, and scalable web development tailored to your needs."
+  />
+  {/* FIXED: Added /services/ */}
+  <link rel="canonical" href="https://2greekdevs.gr/services/web-development" />
+  
+  <meta property="og:title" content="Web Development - 2GreekDevs" />
+  <meta
+    property="og:description"
+    content="Transform your ideas into powerful, scalable web applications. Explore 2GreekDevs’ modern web development services with React, Next.js, and TypeScript."
+  />
+  {/* FIXED: Added /services/ */}
+  <meta property="og:url" content="https://2greekdevs.gr/services/web-development" />
+</Helmet>
 
       <Navbar />
 

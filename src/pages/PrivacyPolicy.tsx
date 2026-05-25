@@ -56,25 +56,24 @@ const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-muted/20">
       {/* SEO meta tags */}
-      <Helmet>
-        <title>Privacy Policy | 2GreekDevs</title>
-        <meta
-          name="description"
-          content="Privacy Policy of 2GreekDevs: Learn how we collect, use, and protect your personal data, including cookies, security measures, and user rights."
-        />
-        <link rel="canonical" href="https://2greekdevs.gr/#/privacy-policy" />
-        {/* Open Graph */}
-        <meta property="og:title" content="Privacy Policy | 2GreekDevs" />
-        <meta
-          property="og:description"
-          content="Understand how 2GreekDevs collects, uses, and protects your personal information."
-        />
-        <meta
-          property="og:url"
-          content="https://2greekdevs.gr/#/privacy-policy"
-        />
-      </Helmet>
-
+<Helmet>
+  <title>Privacy Policy | 2GreekDevs</title>
+  <meta
+    name="description"
+    content="Privacy Policy of 2GreekDevs: Learn how we collect, use, and protect your personal data, including cookies, security measures, and user rights."
+  />
+  {/* FIXED: Removed the '#' symbol */}
+  <link rel="canonical" href="https://2greekdevs.gr/privacy-policy" />
+  
+  {/* Open Graph */}
+  <meta property="og:title" content="Privacy Policy | 2GreekDevs" />
+  <meta
+    property="og:description"
+    content="Understand how 2GreekDevs collects, uses, and protects your personal information."
+  />
+  {/* FIXED: Removed the '#' symbol */}
+  <meta property="og:url" content="https://2greekdevs.gr/privacy-policy" />
+</Helmet>
       <Navbar />
       
       <main className="flex-1 pt-20">

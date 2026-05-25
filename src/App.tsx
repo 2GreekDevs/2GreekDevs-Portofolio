@@ -4,20 +4,20 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import Partners from "./pages/Partners";
-import ComingSoon from "./pages/ComingSoon";
-import Eshop from "./pages/Eshop";
-import TermsOfService from "./pages/TermsOfService";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import Projects from "./pages/Projects";
-import WebDevelopment from "./pages/services/WebDev";
-// import MobileApps from "./pages/services/MobileApps";
-import UIUXDesign from "./pages/services/UIUXDesign";
-import DiscordSetup from "./pages/services/discord-services/DiscordSetup";
-import DiscordBots from "./pages/services/discord-services/DiscordBots";
-import ModerationTeam from "./pages/services/discord-services/Moderation";
+import Index from "./pages/Index.tsx";
+import NotFound from "./pages/NotFound.tsx";
+import Partners from "./pages/Partners.tsx";
+import ComingSoon from "./pages/ComingSoon.tsx";
+import Eshop from "./pages/Eshop.tsx";
+import TermsOfService from "./pages/TermsOfService.tsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
+import Projects from "./pages/Projects.tsx";
+import WebDevelopment from "./pages/services/WebDev.tsx";
+// import MobileApps from "./pages/services/MobileApps.tsx";
+import UIUXDesign from "./pages/services/UIUXDesign.tsx";
+import DiscordSetup from "./pages/services/discord-services/DiscordSetup.tsx";
+import DiscordBots from "./pages/services/discord-services/DiscordBots.tsx";
+import ModerationTeam from "./pages/services/discord-services/Moderation.tsx";
 
 
 import Navbar from "./components/Navbar";

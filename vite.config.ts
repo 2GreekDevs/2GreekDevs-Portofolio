@@ -9,8 +9,8 @@ export default defineConfig(({ mode }) => ({
     host: true,
     port: 8080,
   },
-  // FIXED: Changed from '/' to './' for relative asset generation
-  base: './',
+ 
+  base: '/',
   
   plugins: [
     react(),
